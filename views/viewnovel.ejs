@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小说</title>
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="lib/jquery-easyui-1.5/jquery.min.js"></script>
+    <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<% include head.ejs%>
+<div class="col-md-5 col-lg-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                小说详情
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="<%=data.imgUrl%>"style="width:120px;height:150px;">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><%=data.name%></h4>
+                    <p>
+                        作者：<%=data.author%><br />
+                        更新：<%=data.lastUpdateTime.toLocaleString()%><br />
+                    </p>
+                    <p class="btn-group">
+
+                        <a href="/viewsection?id=<%=data._id%>" class="btn btn-default" role="button">
+                            开始阅读
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-7 col-lg-8">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                小说章节
+            </h3>
+        </div>
+        <ul class="list-group" style="height:600px;overflow: scroll">
+            <%for(var item of data.sections){%>
+            <li class="list-group-item"><a class="btn btn-pink" href="viewsection?id=<%=data._id%>&index=<%=item.index%>"><%=item.name%></a></li>
+            <%}%>
+        </ul>
+    </div>
+</div>
+</div>
+<% include foot.ejs%>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小说</title>
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="lib/jquery-easyui-1.5/jquery.min.js"></script>
+    <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<% include head.ejs%>
+<div class="text-center">
+    <div class="btn-group">
+        <%if(index > 0){%>
+        <a href="/viewsection?id=<%=novel._id%>&index=<%=index-1%>" class="btn btn-primary">
+
+            上一章
+        </a>
+        <%}%>
+        <a href="/viewnovel?id=<%=novel._id%>" class="btn btn-default">返回目录</a>
+        <%if(index < _lastIndex){%>
+        <a href="/viewsection?id=<%=novel._id%>&index=<%=index+1%>" class="btn btn-primary">
+
+            下一章
+        </a>
+        <%}%>
+    </div>
+</div>
+<h1 style="text-align: center"><%=novel.sections[index].name%></h1>
+<%-content%>
+<div class="text-center">
+    <div class="btn-group">
+        <%if(index > 0){%>
+        <a href="/viewsection?id=<%=novel._id%>&index=<%=index-1%>" class="btn btn-primary">
+
+            上一章
+        </a>
+        <%}%>
+        <a href="/viewnovel?id=<%=novel._id%>" class="btn btn-default">返回目录</a>
+        <%if(index < _lastIndex){%>
+        <a href="/viewsection?id=<%=novel._id%>&index=<%=index+1%>" class="btn btn-primary">
+
+            下一章
+        </a>
+        <%}%>
+    </div>
+</div>
+<% include foot.ejs%>
+</body>
+<html>

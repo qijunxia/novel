@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>免费小说</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/lib/mui-master/dist/css/mui.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <script src="/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible"></a>
+    <a id="info" class="mui-icon mui-icon-info-filled mui-pull-right" style="color: #999;"></a>
+    <h1 class="mui-title">免费小说APP</h1>
+</header>
+<% include head.ejs%>
+
+<div class="text-center">
+    <div class="btn-group">
+        <%if(page>1){%>
+        <a href="/?searchTxt=<%=searchTxt%>&page=<%=page-1%>&category=<%=category%>" class="btn btn-info">
+            <span ></span>
+            上一页
+        </a>
+        <%}%>
+        <%if(isNextPage){%>
+        <a href="/?searchTxt=<%=searchTxt%>&page=<%=page+1%>&category=<%=category%>" class="btn btn-info">
+            <span ></span>
+            下一页
+        </a>
+        <%}%>
+    </div>
+</div>
+
+<div>
+    <%for(var item of rows){%>
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+        <img src="<%=item.imgUrl%>" width="120" height="150" style="margin-top: 10px ">
+        <div style="width:200px;font-size: 22px;"><%=item.name%></div>
+        <div  style="height:100px;width:200px;overflow:hidden;"><%=item.description%></div>
+        <a href="/viewnovel?id=<%=item._id%>" class="btn btn-primary" role="button">
+            查看章节
+        </a>
+        <a href="/viewsection?id=<%=item._id%>" class="btn btn-default" role="button">
+            阅读
+        </a>
+        </p>
+    </div>
+    <%}%>
+</div>
+<% include foot.ejs%>
+
+</div>
+
+<script src="/lib/mui-master/dist/js/mui.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="../lib/jquery-easyui-1.5/themes/default/easyui.css"/>
+    <link rel="stylesheet" href="../lib/jquery-easyui-1.5/themes/icon.css"/>
+    <script src="../lib/jquery-easyui-1.5/jquery.min.js"></script>
+    <script src="../lib/jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script src="../lib/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <style>
+        table th{
+            text-align:right ;
+        }
+    </style>
+    <script>
+        $.extend($.fn.validatebox.defaults.rules, {
+            userName: {
+                validator: function(value){
+                    return /^[a-z][a-z0-9_]{3,15}$/i.test(value);
+                },
+                message: '只允许输入字母，数字，下划线,长度在4-16之间'
+            },
+            passwordName:{
+                validator: function(value){
+                    return /^[a-z0-9_]{6,16}$/i.test(value);
+                },
+                message: '只允许输入字母，数字，下划线,长度在6-16之间'
+            }
+        });
+        $(function(){
+            $('#btn_login').on('click',function(){
+                $('#login').form('submit',{
+                    url:'/ajax/admins?ac=checkLogin',
+                    onSubmit: function(){
+                        var isValid = $(this).form('validate');
+                        return isValid;	// return false will stop the form submission
+                    },
+                    onProgress:function(persent){
+                        $.messager.progress();
+                    },
+                    success:function(data){
+                        //将JSON转为对象 jQuery方法
+                        var result= $.parseJSON(data);
+                        if(result.error){//如果错误
+                            $.messager.alert('登录失败',result.msg,'error');
+                        }else{//如果没错
+                            window.location.href='main.html'
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
+</head>
+<body>
+<!--<div class="easyui-panel" data-options="{title:'测试',iconCls:'icon-add',fit:true,closable:true,maximizable:true,minimizable:true,onClose:function(){alert(1);}}">123</div>-->
+<div class="easyui-window" width="400" height="160" title="管理登录" iconCls="icon-man"closable="false"minimizable="false" maximizable="false" resizable="false" modal="true" style="padding:10px">
+    <form id="login" method="post">
+        <table border="0" cellpadding="3" cellspacing="2" width="100%">
+            <tr>
+                <th style="width:120px">用户名：</th>
+                <td><input type="text" name="loginId" class="easyui-textbox" required="true" tipPosition="top" validType="userName" iconCls="icon-man"/></td>
+            </tr>
+            <tr>
+                <th>密码：</th>
+                <td><input type="password" name="loginPass" class="easyui-textbox"  required="true" tipPosition="top" validType="passwordName" iconCls="icon-lock"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"style="text-align: center;"><a id="btn_login" href="javascript:void(0)" class="easyui-linkbutton"iconCls="icon-ok">登&nbsp;录</a></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
